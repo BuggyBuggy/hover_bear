@@ -1,0 +1,138 @@
+$face: #b65129;
+$face2: #e1a368;
+$mouth: #683210;
+body {
+    background: $face;
+}
+
+.bear {
+    width: 400px;
+    height: 400px;
+    background: $face;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -200px;
+    margin-top: -200px;
+    &:hover {
+        .mouth {
+            width: 120px;
+            margin-left: -60px;
+        }
+    }
+}
+
+$faceS: 240px;
+.face {
+    width: $faceS;
+    height: $faceS;
+    background: $face2;
+    border-radius: 50%;
+    position: absolute;
+    left: 50%;
+    margin-left: -$faceS / 2;
+    bottom: 20px;
+    &:hover {
+        .mouth {
+            height: 120px;
+        }
+    }
+}
+
+.nose {
+    width: 30px;
+    height: 30px;
+    background: #333;
+    position: absolute;
+    left: 50%;
+    top: 5px;
+    margin-left: -15px;
+    border-radius: 50%;
+    &:hover {
+        animation: shake 100ms alternate 4;
+        // ~ 只能控制之後的元素, 如果nose在mouth後面, 就只能用js控制了
+        ~.mouth {
+            width: 40px;
+            margin-left: -20px;
+        }
+        ~.eye:before {
+            margin: -5px 0 0 -5px;
+        }
+        ~.eye:nth-of-type(2):before {
+            margin: -5px 0 0 -10px;
+            // transform:translate3d(-5px,0px,0);
+        }
+    }
+}
+
+.eye {
+    width: 30px;
+    height: 30px;
+    background: #000;
+    position: absolute;
+    top: -20px;
+    border-radius: 50%;
+    transition: 300ms all;
+    &:before {
+        content: "";
+        width: 15px;
+        height: 15px;
+        position: absolute;
+        border-radius: 50%;
+        background: #fff;
+        left: 50%;
+        top: 50%;
+        margin-left: -7.5px;
+        margin-top: -7.5px;
+    }
+    // &:nth-of-type 是要有兩個一樣的元素才行(ex:兩個一樣都是i.eye)
+    &:nth-of-type(2) {
+        right: 0;
+    }
+}
+
+.mouth {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    margin-left: -20px;
+    background: $mouth;
+    border-radius: 50%;
+    transition: all 300ms;
+}
+
+.eye-mask {
+    height: 40px;
+    position: absolute;
+    top: -25px;
+    // background: #333;
+    left: 0;
+    right: 0;
+    z-index: 9;
+    &:hover {
+        ~.eye {
+            height: 10px;
+            width: 50px;
+            border-radius: 5px;
+            transform: rotate(-25deg);
+            &:before {
+                display: none;
+            }
+            &:nth-of-type(2) {
+                transform: rotate(25deg);
+            }
+        }
+    }
+}
+
+@keyframes shake {
+    0% {
+        transform: translate3d(0, 0, 0);
+    }
+    100% {
+        transform: translate3d(0, -5px, 0);
+    }
+}
